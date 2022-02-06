@@ -3,6 +3,7 @@ puts "Welcome to Tic Tac Toe"
 class Game
     @board
     @position
+    @user_position
     def initialize
         @board = [" "," "," "," "," "," "," "," "," "]
     end
@@ -16,28 +17,45 @@ class Game
     end
     
     def turn
-        puts "choose position in board(1-9)"
+        loop do
+        puts "choose valid position in board(1-9)"
         @position = gets.to_i
-        @board[@position-1] = 'x'
+        @user_position = @position-1
+        break if valid_position(@user_position)
+        end
+        @board[@user_position] = 'x'
         display_board
-        puts "\nAI turn"
-        ai_turn
         
+        puts "\n Ai turn"
+        ai_turn   
     end
 
     def ai_turn
-        @position = rand(1..9)
-        if @board[@position] == " "
-            @board[@position] = 'o'
-        else
-            ai_turn
+        
+        loop do
+            @position = rand(0..8)
+            break if valid_position(@position) 
         end
+        @board[@position] = 'o'
+        
         display_board
+    end
+
+    def valid_position(pos)
+        if @board[pos] == " "
+            return true
+        else
+            return false
+        end
+    end
+
+    def winning_position
+        
     end
 end
 
 begin
 game1 = Game.new
 game1.display_board
-game1.turn
+game1.turn 
 end
