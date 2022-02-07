@@ -1,12 +1,14 @@
-puts "Welcome to Tic Tac Toe"
+
 
 class Game
     @board
+    @mode
     @position
     @user_position
     @winner
-    def initialize
+    def initialize(mode)
         @board = [" "," "," "," "," "," "," "," "," "]
+        @mode = mode
     end
     
     def display_board
@@ -18,6 +20,7 @@ class Game
     end
     
     def turn
+        
         loop do
         puts "choose valid position in board(1-9)"
         @position = gets.to_i
@@ -28,11 +31,34 @@ class Game
         display_board
         
         if winning_case(@board)
-            puts "you are winner"
+            puts "Player1 is winner"
         else
-            
+            if @mode == 1
             puts "\n Ai turn"
             ai_turn
+            elsif @mode ==2
+                puts "\n Player2 turn"
+                turn2
+            end
+        end
+    end
+
+    def turn2
+        loop do
+        puts "choose valid position in board(1-9)"
+        @position = gets.to_i
+        @user_position = @position-1
+        break if valid_position(@user_position)
+        end
+        @board[@user_position] = 'o'
+        display_board
+        
+        if winning_case(@board)
+            puts "Player2 is winner"
+        else
+            
+            puts "\n Player1 Turn"
+            turn
         end
     end
 
@@ -106,7 +132,21 @@ class Game
 end
 
 begin
-game1 = Game.new
-game1.display_board
-game1.turn 
+    puts "Welcome to Tic Tac Toe Game"
+    puts "---------------------------"
+    puts "Choose the gaming mode"
+    puts "1. Single-player"
+    puts "2. Multi-player"
+    mode = gets.to_i
+    if mode == 1 || mode ==2
+        game1 = Game.new(mode)
+        game1.display_board
+        game1.turn 
+    else
+        puts "Error Invalid input"
+    end
+
+#game1 = Game.new
+#game1.display_board
+#game1.turn 
 end
