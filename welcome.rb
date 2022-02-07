@@ -166,7 +166,20 @@ begin
     if mode == 1 || mode ==2
         game1 = Game.new(mode)
         game1.display_board
-        game1.turn 
+        who_play_first = rand(1..2) #choosing who plays first strike
+       
+        if who_play_first ==1
+            puts "Player1 goes first"
+            game1.turn 
+        elsif who_play_first == 2
+           if mode == 1
+                puts "Ai goes first"
+                game1.ai_turn
+           elsif mode == 2
+                puts "Player 2 goes first"
+                game1.turn2
+           end
+        end
     else
         puts "Error Invalid input"
     end
