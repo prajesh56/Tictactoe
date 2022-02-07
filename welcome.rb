@@ -18,7 +18,6 @@ class Game
     end
     
     def turn
-        
         loop do
         puts "Player 1: choose valid position in board(1-9)"
         @position = gets.to_i
