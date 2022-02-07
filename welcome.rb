@@ -22,7 +22,7 @@ class Game
     def turn
         
         loop do
-        puts "choose valid position in board(1-9)"
+        puts "Player 1: choose valid position in board(1-9)"
         @position = gets.to_i
         @user_position = @position-1
         break if valid_position(@user_position)
@@ -31,21 +31,29 @@ class Game
         display_board
         
         if winning_case(@board)
-            puts "Player1 is winner"
+            puts "\nPlayer1 is winner"
         else
             if @mode == 1
-            puts "\n Ai turn"
-            ai_turn
+                if game_over(@board)
+                    puts "\nGame over, No player is winner."
+                else
+                    puts "\n Ai turn"
+                    ai_turn
+                end
             elsif @mode ==2
+                if game_over(@board)
+                    puts "\nGame over, No player is winner."
+                else
                 puts "\n Player2 turn"
                 turn2
+                end
             end
         end
     end
 
     def turn2
         loop do
-        puts "choose valid position in board(1-9)"
+        puts "Player 2:choose valid position in board(1-9)"
         @position = gets.to_i
         @user_position = @position-1
         break if valid_position(@user_position)
@@ -54,11 +62,14 @@ class Game
         display_board
         
         if winning_case(@board)
-            puts "Player2 is winner"
+            puts "\nPlayer2 is winner"
         else
-            
-            puts "\n Player1 Turn"
-            turn
+            if game_over(@board)
+                puts "\nGame over, No player is winner."
+            else
+                puts "\n Player1 Turn"
+                turn
+            end
         end
     end
 
@@ -73,11 +84,14 @@ class Game
         display_board
         
         if winning_case(@board)
-            puts "Ai is winner"
+            puts "\nAi is winner"
         else
-            
-            puts "\n Your turn"
-            turn
+            if game_over(@board)
+                puts "\nGame over, No player is winner."
+            else
+                puts "\n Your turn"
+                turn
+            end
         end
     end
 
@@ -129,6 +143,20 @@ class Game
             false
         end
     end
+
+    def game_over(board)
+        counter = 0
+        board.each do |a|
+          if a == " "
+              counter+=1
+          end
+        end
+        if counter == 0
+            return true
+        else
+            return false
+        end
+    end
 end
 
 begin
@@ -146,7 +174,5 @@ begin
         puts "Error Invalid input"
     end
 
-#game1 = Game.new
-#game1.display_board
-#game1.turn 
+
 end
