@@ -4,6 +4,7 @@ class Game
     @board
     @position
     @user_position
+    @winner
     def initialize
         @board = [" "," "," "," "," "," "," "," "," "]
     end
@@ -26,8 +27,13 @@ class Game
         @board[@user_position] = 'x'
         display_board
         
-        puts "\n Ai turn"
-        ai_turn   
+        if winning_case(@board)
+            puts "you are winner"
+        else
+            
+            puts "\n Ai turn"
+            ai_turn
+        end
     end
 
     def ai_turn
@@ -39,6 +45,14 @@ class Game
         @board[@position] = 'o'
         
         display_board
+        
+        if winning_case(@board)
+            puts "Ai is winner"
+        else
+            
+            puts "\n Your turn"
+            turn
+        end
     end
 
     def valid_position(pos)
@@ -49,8 +63,45 @@ class Game
         end
     end
 
-    def winning_position
-        
+    def winning_case(arr)
+    #rowwise winner
+        if arr[0]=='x' && arr[1]=='x' && arr[2]=='x'
+            true
+        elsif arr[0]=='o' && arr[1]=='o' && arr[2]=='o'
+            true
+        elsif arr[3]=='x' && arr[4]=='x' && arr[5]=='x'
+            true
+        elsif arr[3]=='o' && arr[4]=='o' && arr[5]=='o'
+            true
+        elsif arr[6]=='x' && arr[7]=='x' && arr[8]=='x'
+            true
+        elsif arr[6]=='o' && arr[7]=='o' && arr[8]=='o'
+            true
+    #columnwise winner
+        elsif arr[0]=='x' && arr[3]=='x' && arr[6]=='x'
+            true
+        elsif arr[0]=='o' && arr[3]=='o' && arr[6]=='o'
+            true
+        elsif arr[1]=='x' && arr[4]=='x' && arr[7]=='x'
+            true
+        elsif arr[1]=='o' && arr[4]=='o' && arr[7]=='o'
+            true
+        elsif arr[2]=='x' && arr[5]=='x' && arr[8]=='x'
+            true
+        elsif arr[2]=='o' && arr[5]=='o' && arr[8]=='o'
+            true
+    #diagonalwise winner
+        elsif arr[0]=='x' && arr[4]=='x' && arr[8]=='x'
+            true
+        elsif arr[0]=='o' && arr[4]=='o' && arr[8]=='o'
+            true
+        elsif arr[2]=='x' && arr[4]=='x' && arr[6]=='x'
+            true
+        elsif arr[2]=='o' && arr[4]=='o' && arr[6]=='o'
+            true
+        else
+            false
+        end
     end
 end
 
