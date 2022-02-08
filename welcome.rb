@@ -18,12 +18,13 @@ class Game
     end
     
     def turn
-        loop do
+        loop do #to check if position is valid
         puts "Player 1: choose valid position in board(1-9)"
         @position = gets.to_i
         @user_position = @position-1
         break if valid_position(@user_position)
         end
+
         @board[@user_position] = 'x'
         display_board
         
@@ -49,12 +50,13 @@ class Game
     end
 
     def turn2
-        loop do
+        loop do #to check if position is valid
         puts "Player 2:choose valid position in board(1-9)"
         @position = gets.to_i
         @user_position = @position-1
         break if valid_position(@user_position)
         end
+        
         @board[@user_position] = 'o'
         display_board
         
